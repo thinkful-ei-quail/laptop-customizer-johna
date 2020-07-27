@@ -1,12 +1,13 @@
 import React from 'react';
 import ConfiguratorFeature from './ConfiguratorFeature.js'
+import features from './features.js';
 import './Configurator.css';
 
 export default class Configurator extends React.Component {
   render() {
-    const { extraAttrs, features, selections, currencyFormatter, onFeatureChange } = this.props;
+    const { selections, currencyFormatter, onFeatureChange } = this.props;
     return (
-      <form {...extraAttrs}>
+      <>
         <h2>Customize your laptop</h2>
         {Object.keys(features).map((name, idx) => {
           const hash = name + '-' + idx;
@@ -20,7 +21,7 @@ export default class Configurator extends React.Component {
             />
           )
         })}
-      </form>
+      </>
     );
   }
 }

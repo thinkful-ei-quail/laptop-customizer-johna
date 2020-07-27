@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Configurator from './Configurator.js';
 import ShoppingCart from './ShoppingCart.js';
 import SiteHeader from './SiteHeader.js';
+import features from './features.js';
 import './App.css';
 
 // This object will allow us to
@@ -14,7 +15,6 @@ const USCurrencyFormat = new Intl.NumberFormat('en-US', {
 export default class App extends Component {
   constructor(props) {
     super(props);
-    const { features } = props;
     this.state = {
       selected: Object.keys(features).reduce((map, key) => {
          map[key] = features[key][0];
@@ -32,24 +32,21 @@ export default class App extends Component {
   };
 
   render() {
-    const { features } = this.props;
     const { selected } = this.state;
     return (
       <div className="App">
         <SiteHeader />
         <main>
-          <Configurator
-            extraAttrs={{className: "main__form"}}
-            features={features}
-            selections={selected}
-            currencyFormatter={USCurrencyFormat}
-            onFeatureChange={this.updateFeature}
-          />
-          <ShoppingCart
-            extraAttrs={{className: "main__summary"}}
-            contents={selected}
-            currencyFormatter={USCurrencyFormat}
-          />
+          <form className="main__form">
+            <Configurator
+              selections={selected}
+              currencyFormatter={USCurrencyFormat}
+              onFeatureChange={this.updateFeature}
+            />
+          </form>
+          <section className="main__summary">
+            <ShoppingCart contents={selected} currencyFormatter={USCurrencyFormat} />
+          </section>
         </main>
       </div>
     );
